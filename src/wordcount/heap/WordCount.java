@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.Set;
 
 import wordcount.Word;
@@ -40,16 +41,24 @@ public class WordCount {
 			}
 			br.close();
 			Word wc;
-			List<Word> keyVal = new ArrayList<Word>();
+			//List<Word> keyVal = new ArrayList<Word>();
+			PriorityQueue<Word> pq = new PriorityQueue<Word>(new WordComparator());
+			
 			Set<String> keys = map.keySet();
 			for(String key : keys){
 				wc = new Word(key, (Integer)map.get(key));	
-				keyVal.add(wc);
+				//keyVal.add(wc);
+				pq.add(wc);
 			}
-			keyVal.sort(new WordComparator());
+			//keyVal.sort(new WordComparator());
 			
+
+
+			Word wordObj;
 			for(int i=0;i<5;i++){
-				System.out.println("Word "+keyVal.get(i).getName()+" occured "+keyVal.get(i).getOccurance()+" times!!");
+				
+				wordObj = pq.poll();
+				System.out.println("Word "+wordObj.getName()+" occured "+wordObj.getOccurance()+" times!!");
 			}
 			
 		} catch (FileNotFoundException e) {
